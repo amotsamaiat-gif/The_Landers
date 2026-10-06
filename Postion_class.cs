@@ -16,17 +16,9 @@ namespace The_Landers
             this.y = y;
         }
 
-        public int postionX// controlled way to access the private x field from outside the class.
-        {
-            get { return x; }
-            set { x = value; }
-        }
+        public int postionX{  get { return x; }set { x = value; }}
 
-        public int postionY // controlled way to access the private y field from outside the class.
-        {
-            get { return y; }
-            set { y = value; }
-        }
+        public int postionY { get { return y; }set { y = value; }}
 
 
     }

@@ -12,7 +12,7 @@ namespace The_Landers
 
         public override char Display //this sets it so that every tile must repsond to display and return a char
         {
-            get { return ' '; }
+            get { return '.'; }
         }
 
     }

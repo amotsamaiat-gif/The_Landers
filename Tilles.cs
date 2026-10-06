@@ -25,11 +25,12 @@ namespace The_Landers
             set { position.postionY = value; }
         }
 
-        public int position_class
+        public  Postion_class Position
         {
-            get { return position_class; }
-            set { position_class = value; }
+            get { return position; }
+            set { position = value; }
         }
+        
         public abstract char Display { get; } // this makes sure that every tile will have a display
     }
 }
