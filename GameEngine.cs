@@ -18,6 +18,8 @@ namespace The_Landers
             get { return currentlevelnumber; } 
         }
 
+        // Returns the heros max hit points as a string 
+
         public string Herostats
         {
             get { return currentLevel.PlayerTile.HitPoints + "/" + currentLevel.PlayerTile.MaxHitPoints; }

@@ -8,6 +8,7 @@ using System.Text;
 
 namespace The_Landers
 {
+
     public abstract class CharacterTile : Tile
     {
         private int hitPoints;
@@ -45,6 +46,7 @@ namespace The_Landers
 
         public void TakeDamage(int damage) { hitPoints -= damage; if (hitPoints < 0) hitPoints = 0; }
 
+        // Restores hit points which is used by pickups.
         public void Heal(int amount)
         {
             hitPoints += amount;
