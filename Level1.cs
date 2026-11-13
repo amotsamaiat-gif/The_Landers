@@ -77,7 +77,7 @@ namespace The_Landers
         {
             get { return exitTile; }
         }
-
+        private Random random = new Random();
         private EnemyTile[] enemies;
         public EnemyTile[] Enemies
         {
@@ -100,7 +100,7 @@ namespace The_Landers
                     tile = new ExitTile(position);
                     break;
                 case TileType.Enemy:
-                    tile = new GruntTile(position, this);
+                    tile = CreateEnemyTile(type,position);
                     break;
                 case TileType.Empty:
                 default:
@@ -116,6 +116,26 @@ namespace The_Landers
         private Tile CreateTile(TileType type, int x, int y) // calls the create tile mrthod with numbers instead of creating a postion 
         {
             return CreateTile(type, new Postion_class(x, y));
+
+        }
+        // picks a random enemy type: 50% grunt, 30% warlock, 20% tyrant
+        private EnemyTile CreateEnemyTile(TileType type, Postion_class position)
+        {
+            int roll = random.Next(100);// a number from 0 to 99
+
+            if (roll < 50)
+            {
+                return new GruntTile(position, this);
+            }
+            else if (roll < 80)
+            {
+                return new WarlockTile(position, this);
+            }
+            else
+            {
+                return new TyrantTile(position, this);
+            }
+
         }
         
         private void InitialiseTiles() // creates the grid of tiles for the level 
@@ -160,6 +180,19 @@ namespace The_Landers
                 enemy.UpdateVision(this);
             }
         }
+
+        public void UpdateExit() // unlocks the exit once the level is dead 
+        {
+            foreach (EnemyTile enemy in enemies)
+            {
+                if (!enemy.IsDead)
+                {
+                    return; // an enemy is still alive, so the exit stays locked
+                }
+
+            }
+        } 
+
 
         private Postion_class GetRandomEmptyPosition() // gets a random position for the player to spawn in 
         {

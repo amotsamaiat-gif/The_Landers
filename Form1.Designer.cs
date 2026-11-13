@@ -43,7 +43,7 @@ namespace The_Landers
             Displaylbl1.BorderStyle = BorderStyle.Fixed3D;
             Displaylbl1.Location = new Point(-1, 33);
             Displaylbl1.Name = "Displaylbl1";
-            Displaylbl1.Size = new Size(801, 418);
+            Displaylbl1.Size = new Size(801, 376);
             Displaylbl1.TabIndex = 0;
             Displaylbl1.TextAlign = ContentAlignment.MiddleCenter;
             Displaylbl1.Click += Displaylbl1_Click;
@@ -62,7 +62,7 @@ namespace The_Landers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 408);
             Controls.Add(lblLevelNumber);
             Controls.Add(Displaylbl1);
             Name = "Form1";

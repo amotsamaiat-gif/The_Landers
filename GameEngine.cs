@@ -127,7 +127,13 @@ namespace The_Landers
                     gamestate = GameState.Complete;
                 }
             }
+
+            // unlock the exit if that attack killed the last enemy 
+            currentLevel.UpdateExit();
         }
+        
+        
+
 
         private void EnemiesAttack()
         {
@@ -151,9 +157,17 @@ namespace The_Landers
             PlayerTile hero = currentLevel.PlayerTile;
             Tile targetTile = hero.Vision[(int)direction];
 
-            if (targetTile is ExitTile)
+            if (targetTile is ExitTile exit)
             {
+                // the hero can't go through the exit until it's unlocked
+                if (exit.Locked)
+
+                {
+                    return false;
+                }
+
                 if (currentlevelnumber >= numberoflevel1s)
+
                 {
                     gamestate = GameState.Complete;
                     return false;

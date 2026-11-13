@@ -152,7 +152,7 @@ namespace The_Landers
             guidePanel = new Panel();
             guidePanel.BackColor = Color.FromArgb(25, 25, 35);
             guidePanel.Location = new Point(0, menuStrip.Height);
-            guidePanel.Size = new Size(230, ClientSize.Height - menuStrip.Height);
+            guidePanel.Size = new Size(300, ClientSize.Height - menuStrip.Height);
             guidePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             Controls.Add(guidePanel);
 
@@ -174,6 +174,8 @@ namespace The_Landers
             AddGuideLabel("SYMBOLS", Color.Gold, FontStyle.Bold);
             AddGuideLabel("⚔ = you\nX = grunt   x = dead\n░ = exit (next level)", Color.White, FontStyle.Regular);
 
+           
+
             // Put the map to the right of the panel and let it resize with the window
             Displaylbl1.Dock = DockStyle.None;
             Displaylbl1.Location = new Point(guidePanel.Width, menuStrip.Height);
@@ -183,7 +185,7 @@ namespace The_Landers
             lblLevelNumber.Visible = true;
             lblLevelNumber.BringToFront();
             lblLevelNumber.AutoSize = false;
-            lblLevelNumber.Size = new Size(210, 24);
+            lblLevelNumber.Size = new Size(280, 24);
 
             guidePanel.BringToFront();
             menuStrip.BringToFront();
