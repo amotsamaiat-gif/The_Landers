@@ -120,7 +120,7 @@ namespace The_Landers
 
             if (attackSuccessful)
             {
-                MoveEnemies();
+                EnemiesAttack();
 
                 if (currentLevel.PlayerTile.IsDead)
                 {
