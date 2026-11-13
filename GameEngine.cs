@@ -41,7 +41,7 @@ namespace The_Landers
 
             int width = random.Next(MIN_Size, MAX_Size + 1);
             int height = random.Next(MIN_Size, MAX_Size + 1);
-            currentLevel = new Level1(width, height, currentlevelnumber);
+            currentLevel = new Level1(width, height, currentlevelnumber, 1);
 
             currentlevelnumber = 1;
             gamestate = GameState.InProgress;
@@ -68,7 +68,7 @@ namespace The_Landers
                 currentlevelnumber++;
                 int width = random.Next(MIN_Size, MAX_Size + 1);
                 int height = random.Next(MIN_Size, MAX_Size + 1);
-                currentLevel = new Level1(width, height, currentlevelnumber);
+                currentLevel = new Level1(width, height, currentlevelnumber, 1);
             }
             
         }
