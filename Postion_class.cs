@@ -4,6 +4,7 @@ using System.Text;
 
 namespace The_Landers
 {
+    [Serializable]
     public class Postion_class
     {
         //Two private fields to store the actual coordinate values. private means nothing outside this class can access x or y

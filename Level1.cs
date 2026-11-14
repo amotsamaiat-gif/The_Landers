@@ -5,6 +5,7 @@ using System.Text;
 
 namespace The_Landers
 {
+    [Serializable]
     public class Level1
     {
         public enum TileType // types of tiles we can ask the level to create or have.
@@ -14,24 +15,29 @@ namespace The_Landers
             hero,
             exit,
             
-            Enemy
+            Enemy,
+            pickup
         }
 
         private Tile[,] tiles;
         public int Width;
         public int Height;
 
-    
+        [NonSerialized]
+        private Random random;
+
+
         public Tile[,] Tiles // fills the array size with the tiles it generates 
         {
             get { return tiles; }
             set { tiles = value; }
         }
 
-        public Level1(int width, int height, int numberOfEnemies)
+        public Level1(int width, int height, int numberOfEnemies, int numberOfPickups)
         {
             this.Width = width;
             this.Height = height;
+            random = new Random();
             tiles = new Tile[width, height];
             InitialiseTiles();
 
@@ -48,6 +54,13 @@ namespace The_Landers
                 Postion_class enemyPosition = GetRandomEmptyPosition();
                 enemies[i] = (EnemyTile)CreateTile(TileType.Enemy, enemyPosition);
                 
+            }
+
+            Pickups = new PickupTiles[numberOfPickups];
+            for (int i = 0; i < numberOfPickups; i++)
+            {
+                Postion_class pickupPosition = GetRandomEmptyPosition();
+                Pickups[i] = (PickupTiles)CreateTile(TileType.pickup, pickupPosition);
             }
 
         }
@@ -85,6 +98,12 @@ namespace The_Landers
             
         }
 
+        private PickupTiles[] Pickups;
+        public PickupTiles[] pickups
+        {
+            get { return Pickups; }
+        }
+
         private Tile CreateTile(TileType type, Postion_class position) //builds tile type based on eneum type and position 
         {
             Tile tile;
@@ -100,7 +119,10 @@ namespace The_Landers
                     tile = new ExitTile(position);
                     break;
                 case TileType.Enemy:
-                    tile = new GruntTile(position);
+                    tile = CreateEnemyTile(position);
+                    break;
+                case TileType.pickup:
+                    tile = CreatePickupTile(position);
                     break;
                 case TileType.Empty:
                 default:
@@ -117,7 +139,40 @@ namespace The_Landers
         {
             return CreateTile(type, new Postion_class(x, y));
         }
-        
+
+        private EnemyTile CreateEnemyTile(Postion_class position) // creates the enemy tile 
+        {
+            int roll = random.Next(100);
+
+            if (roll < 50)
+            {
+                return new GruntTile(position, this);
+            }
+            else if (roll < 80)
+            {
+                return new WarlockTile(position, this);
+            }
+            else
+            {
+                return new TyrantTile(position, this);
+            }
+   
+        }
+
+        private PickupTiles CreatePickupTile(Postion_class position) // creates the pickup tile 
+        {
+            int roll = random.Next(3);
+            if (roll < 2)
+            {
+                return new HealthPickUpTile(position);
+            }
+            else
+            {
+                return new AttackBuffPickUpTiles(position);
+            }
+
+        }
+
         private void InitialiseTiles() // creates the grid of tiles for the level 
         {
             for (int x = 0; x < Width; x++)
@@ -159,6 +214,19 @@ namespace The_Landers
             {
                 enemy.UpdateVision(this);
             }
+        }
+
+        public void UpdateExit()
+        {
+            foreach (EnemyTile enemy in enemies)
+            {
+                if (!enemy.IsDead)
+                {
+                    return; // an enemy is still alive so the exit stays locked
+                }
+            }
+
+            exitTile.Locked = false;
         }
 
         private Postion_class GetRandomEmptyPosition() // gets a random position for the player to spawn in 

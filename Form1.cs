@@ -23,6 +23,9 @@ namespace The_Landers
             this.KeyPreview = true; // Ensure the form receives key events
             this.KeyDown += Form1_KeyDown;
             UpdateDisplay();
+
+            gameEngine.SaveGame();
+            gameEngine.LoadGame();
         }
 
         private void UpdateDisplay()
@@ -33,6 +36,8 @@ namespace The_Landers
             Color[] palette = { Color.Lime, Color.Cyan, Color.Yellow, Color.Magenta, Color.Red, Color.Orange, Color.Purple, Color.Brown, Color.Gray, Color.White, Color.CornflowerBlue };
             Displaylbl1.ForeColor = palette[ColorRandom.Next(palette.Length)];
         }
+
+
 
         private MenuStrip menuStrip;
 
@@ -70,15 +75,23 @@ namespace The_Landers
 
         private void SaveGame_Click(object sender, EventArgs e)
         {
-            // Implement save game logic here
+            gameEngine.SaveGame();
             MessageBox.Show("Game saved!");
         }
 
         private void LoadGame_Click(object sender, EventArgs e)
         {
-            // Implement load game logic here
-            MessageBox.Show("Game loaded!");
-            UpdateDisplay();
+            bool loaded = gameEngine.LoadGame();
+
+            if (loaded)
+            {
+                UpdateDisplay();
+                MessageBox.Show("Game loaded!");
+            }
+            else
+            {
+                MessageBox.Show("No saved game found.");
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -152,7 +165,7 @@ namespace The_Landers
             guidePanel = new Panel();
             guidePanel.BackColor = Color.FromArgb(25, 25, 35);
             guidePanel.Location = new Point(0, menuStrip.Height);
-            guidePanel.Size = new Size(230, ClientSize.Height - menuStrip.Height);
+            guidePanel.Size = new Size(300, ClientSize.Height - menuStrip.Height);
             guidePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             Controls.Add(guidePanel);
 
@@ -173,6 +186,11 @@ namespace The_Landers
 
             AddGuideLabel("SYMBOLS", Color.Gold, FontStyle.Bold);
             AddGuideLabel("⚔ = you\nX = grunt   x = dead\n░ = exit (next level)", Color.White, FontStyle.Regular);
+            AddGuideLabel("ENEMIES", Color.Gold, FontStyle.Bold);
+            AddGuideLabel("X = grunt\n    wanders around\nÅ = warlock\n    never moves, hits all 8\n    tiles around it\n§ = tyrant\n    chases you, hits your\n    whole row and column\nx = dead enemy", Color.White, FontStyle.Regular);
+
+            AddGuideLabel("TIPS", Color.Gold, FontStyle.Bold);
+            AddGuideLabel("Kill every enemy to\nunlock the exit.\nEnemies move after every\n2nd move you make.", Color.White, FontStyle.Regular);
 
             // Put the map to the right of the panel and let it resize with the window
             Displaylbl1.Dock = DockStyle.None;
@@ -183,7 +201,7 @@ namespace The_Landers
             lblLevelNumber.Visible = true;
             lblLevelNumber.BringToFront();
             lblLevelNumber.AutoSize = false;
-            lblLevelNumber.Size = new Size(210, 24);
+            lblLevelNumber.Size = new Size(280, 24);
 
             guidePanel.BringToFront();
             menuStrip.BringToFront();

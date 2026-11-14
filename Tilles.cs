@@ -4,6 +4,7 @@ using System.Text;
 
 namespace The_Landers
 {
+    [Serializable]
     public abstract class Tile // the base class for all tile types
     {
         private Postion_class position; // stores the position of the tile on the game

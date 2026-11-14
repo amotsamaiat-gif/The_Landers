@@ -4,6 +4,7 @@ using System.Text;
 
 namespace The_Landers
 {
+    [Serializable]
     public class EmptyTile : Tile // extends tile inherits from the tile class
     {
         public EmptyTile(Postion_class position) : base(position)

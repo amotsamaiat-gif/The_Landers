@@ -4,6 +4,7 @@ using System.Text;
 
 namespace The_Landers
 {
+    [Serializable]
     internal class WallTile : Tile // extends tile inherits from the tile class
     {
         public WallTile(Postion_class position) : base(position) { }

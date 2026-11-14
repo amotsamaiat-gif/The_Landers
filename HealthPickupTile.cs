@@ -4,6 +4,7 @@ using System.Text;
 
 namespace The_Landers
 {
+    [Serializable]
     //The first pickup type restores hit points to whoever players walks over it
     public class HealthPickUpTile : PickupTiles
     {

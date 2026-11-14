@@ -8,6 +8,7 @@ using System.Text;
 
 namespace The_Landers
 {
+    [Serializable]
 
     public abstract class CharacterTile : Tile
     {
@@ -15,6 +16,8 @@ namespace The_Landers
         private int maxHitPoints;
         private int attackPower;
         private Tile[] vision;
+
+        private int doubleDamageCount;
 
         protected CharacterTile(Postion_class position, int hitPoints, int attackPower) : base(position)
         {
@@ -57,10 +60,24 @@ namespace The_Landers
             }
         }
 
+        public void SetDoubleDamage(int count)
+        {
+            doubleDamageCount += count;
+            
+        }
+
         public void Attack(CharacterTile target) 
         { 
-            target.TakeDamage(attackPower); 
-        
+            if (doubleDamageCount > 0)
+            {
+                target.TakeDamage(attackPower * 2);
+                doubleDamageCount--;
+            }
+            else
+            {
+                target.TakeDamage(attackPower);
+            }
+
         }
 
         public void SetHitpoints(int value)
